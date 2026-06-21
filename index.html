@@ -1,99 +1,150 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <style>
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-    }
 
-    body{
-        height:100vh;
-        overflow:hidden;
-        font-family:Arial, sans-serif;
-        background:linear-gradient(135deg,#ffe6f2,#fff8dc);
-        position:relative;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    #studyBtn{
-        position:absolute;
-        top:60%;
-        left:50%;
-        transform:translateX(-50%);
-        padding:15px 30px;
-        font-size:22px;
-        border:none;
-        border-radius:12px;
-        background:#ff4da6;
-        color:white;
-        cursor:pointer;
-        transition:0.5s;
-    }
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#ffe6f2,#fff8dc);
+    position:relative;
+}
 
-    #studyBtn:hover{
-        transform:translateX(-50%) scale(1.08);
-    }
+#studyBtn{
+    position:absolute;
+    top:60%;
+    left:50%;
+    transform:translateX(-50%);
+    padding:15px 30px;
+    font-size:22px;
+    border:none;
+    border-radius:12px;
+    background:#ff4da6;
+    color:white;
+    cursor:pointer;
+    transition:0.5s;
+}
 
-    .hide{
+#studyBtn:hover{
+    transform:translateX(-50%) scale(1.08);
+}
+
+.hide{
+    opacity:0;
+    transform:translateX(-50%) scale(0.8);
+    pointer-events:none;
+}
+
+#centerBox{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+}
+
+#message{
+    font-size:2rem;
+    color:#d63384;
+    opacity:0;
+    transform:scale(0.8);
+    transition:all 1s ease;
+    width:90vw;
+}
+
+#loveBtn{
+    position:absolute;
+    top:65%;
+    left:50%;
+    transform:translateX(-50%);
+
+    padding:12px 25px;
+    font-size:20px;
+    border:none;
+    border-radius:10px;
+    background:#ff69b4;
+    color:white;
+    cursor:pointer;
+
+    display:none;
+}
+
+#counterText{
+    margin-top:20px;
+    font-size:2rem;
+    color:#d63384;
+    font-weight:bold;
+}
+
+.flower{
+    position:absolute;
+    top:-50px;
+    font-size:35px;
+    animation:fall linear forwards;
+    pointer-events:none;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-50px) rotate(0deg);
+    }
+    to{
+        transform:translateY(110vh) rotate(360deg);
         opacity:0;
-        transform:translateX(-50%) scale(0.8);
-        pointer-events:none;
     }
+}
 
-    #message{
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform:translate(-50%,-50%) scale(0.8);
-        font-size:2rem;
-        color:#d63384;
+.confetti{
+    position:absolute;
+    width:10px;
+    height:10px;
+    top:-20px;
+    animation:confettiFall linear forwards;
+    pointer-events:none;
+}
+
+@keyframes confettiFall{
+    from{
+        transform:translateY(0) rotate(0deg);
+    }
+    to{
+        transform:translateY(110vh) rotate(720deg);
         opacity:0;
-        transition:all 1s ease;
-        text-align:center;
-        width:90%;
     }
+}
 
-    .flower{
-        position:absolute;
-        top:-50px;
-        font-size:35px;
-        animation:fall linear forwards;
-        pointer-events:none;
-    }
+.popEmoji{
+    position:absolute;
+    font-size:40px;
+    animation:pop 0.6s ease forwards;
+    pointer-events:none;
+}
 
-    @keyframes fall{
-        from{
-            transform:translateY(-50px) rotate(0deg);
-        }
-        to{
-            transform:translateY(110vh) rotate(360deg);
-            opacity:0;
-        }
+@keyframes pop{
+    0%{
+        transform:scale(0);
+        opacity:0;
     }
+    50%{
+        transform:scale(1.5);
+        opacity:1;
+    }
+    100%{
+        transform:scale(1);
+        opacity:0;
+    }
+}
 
-    .confetti{
-        position:absolute;
-        width:10px;
-        height:10px;
-        top:-20px;
-        animation:confettiFall linear forwards;
-        pointer-events:none;
-    }
-
-    @keyframes confettiFall{
-        from{
-            transform:translateY(0) rotate(0deg);
-        }
-        to{
-            transform:translateY(110vh) rotate(720deg);
-            opacity:0;
-        }
-    }
 </style>
 </head>
 
@@ -103,10 +154,20 @@
     Press Kro Chloooo 🫣
 </button>
 
-<h1 id="message">
-    Good Job Bacchaaa 😘 <br>
-    Proud Proud Proud of Youuuu 😗🫂
-</h1>
+<div id="centerBox">
+
+    <h1 id="message">
+        Good Job Bacchaaa 😘 <br>
+        Proud Proud Proud of Youuuu 😗🫂
+    </h1>
+
+    <div id="counterText"></div>
+
+</div>
+
+<button id="loveBtn">
+    Surprise h idrrrr 😗
+</button>
 
 <script>
 
@@ -123,11 +184,15 @@ function celebrate(){
     const msg = document.getElementById("message");
 
     msg.style.opacity = "1";
-    msg.style.transform = "translate(-50%, -50%) scale(1.1)";
+    msg.style.transform = "scale(1.1)";
 
     setTimeout(()=>{
-        msg.style.transform = "translate(-50%, -50%) scale(1)";
+        msg.style.transform = "scale(1)";
     },300);
+
+    setTimeout(()=>{
+        document.getElementById("loveBtn").style.display = "inline-block";
+    },1000);
 
     const flowers = ["🌸","🌷","🌹","💐","🌼","🪻"];
 
@@ -171,6 +236,46 @@ function celebrate(){
         },5000);
     }
 }
+
+document.getElementById("loveBtn").addEventListener("click",()=>{
+
+    // hide button
+    document.getElementById("loveBtn").style.display = "none";
+
+    let count = 0;
+
+    const interval = setInterval(()=>{
+
+        count++;
+
+        document.getElementById("counterText").innerHTML =
+            `😘 ${count}x`;
+
+        const emoji = document.createElement("div");
+
+        emoji.classList.add("popEmoji");
+        emoji.innerHTML = "😘";
+
+        emoji.style.left = Math.random()*90 + "vw";
+        emoji.style.top = Math.random()*80 + "vh";
+
+        document.body.appendChild(emoji);
+
+        setTimeout(()=>{
+            emoji.remove();
+        },600);
+
+        if(count >= 1000){
+
+            clearInterval(interval);
+
+            document.getElementById("counterText").innerHTML =
+                "🫂🫂🫂🫂🫂🫂🫂";
+        }
+
+    },10);
+
+});
 
 </script>
 
